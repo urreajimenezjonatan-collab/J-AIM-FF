@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>J AIM FF</title>
+
+<style>
+body {
+  background: #050505;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+}
+.logo {
+  color: red;
+  font-size: 75px;
+  font-weight: bold;
+}
+h1 { color: red; }
+.panel {
+  background: #151515;
+  border: 1px solid red;
+  border-radius: 15px;
+  padding: 18px;
+  margin: 15px auto;
+  max-width: 400px;
+}
+input { width: 100%; accent-color: red; }
+button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 13px;
+  border-radius: 10px;
+  margin: 8px;
+  font-weight: bold;
+}
+.valor { color: red; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<div class="logo">J</div>
+<h1>J AIM FF</h1>
+<p>Panel de configuración Free Fire</p>
+
+<div class="panel">
+<h2>SENSIBILIDAD</h2>
+
+<div id="sliders"></div>
+
+<button onclick="guardar()">GUARDAR AJUSTES</button>
+<p id="mensaje"></p>
+</div>
+
+<div class="panel">
+<h2>PRÁCTICA PVP</h2>
+<p>Practica el seguimiento de mira y los movimientos.</p>
+<button onclick="alert('¡Hora de practicar!')">COMENZAR</button>
+</div>
+
+<script>
+const ajustes = [
+["General", 180],
+["Punto rojo", 180],
+["Mira 2X", 175],
+["Mira 4X", 170],
+["Mira francotirador", 100],
+["Vista libre", 150]
+];
+
+const zona = document.getElementById("sliders");
+
+ajustes.forEach((a,i) => {
+zona.innerHTML += `
+<p>${a[0]}: <span class="valor" id="v${i}">${a[1]}</span></p>
+<input type="range" min="0" max="200"
+value="${a[1]}" id="s${i}"
+oninput="document.getElementById('v${i}').innerText=this.value">
+`;
+});
+
+function guardar() {
+let datos = ajustes.map((a,i) => ({
+nombre:a[0],
+valor:document.getElementById("s"+i).value
+}));
+localStorage.setItem("J-AIM-FF",JSON.stringify(datos));
+document.getElementById("mensaje").innerText="¡Ajustes guardados!";
+}
+</script>
+
+</body>
+</html>
