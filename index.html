@@ -92,6 +92,82 @@ localStorage.setItem("J-AIM-FF",JSON.stringify(datos));
 document.getElementById("mensaje").innerText="¡Ajustes guardados!";
 }
 </script>
+<style>
+.boost-panel {
+  background: #111;
+  border: 1px solid red;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  color: white;
+  text-align: center;
+}
+.boost-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.boost-status {
+  color: #ff3333;
+  margin-top: 15px;
+}
+</style>
 
+<div class="boost-panel">
+  <h2>🚀 MODO FLUIDEZ</h2>
+  <p>Prepara tu teléfono para jugar</p>
+
+  <select id="gameMode">
+    <option>Free Fire</option>
+    <option>Free Fire MAX</option>
+  </select>
+
+  <br><br>
+
+  <button class="boost-btn" onclick="toggleBoost()">
+    ACTIVAR BOOST
+  </button>
+
+  <h3 id="boostStatus" class="boost-status">
+    DESACTIVADO
+  </h3>
+</div>
+
+<script>
+let boostActive = false;
+
+function toggleBoost() {
+  boostActive = !boostActive;
+
+  const status = document.getElementById("boostStatus");
+  const button = document.querySelector(".boost-btn");
+  const game = document.getElementById("gameMode").value;
+
+  if (boostActive) {
+    status.innerText = "🟢 MODO GAMING ACTIVADO";
+    status.style.color = "#00ff66";
+    button.innerText = "DESACTIVAR BOOST";
+
+    if ("Notification" in window) {
+      if (Notification.permission === "granted") {
+        new Notification("J-AIM-FF 🚀", {
+          body: "Modo Gaming activado para " + game
+        });
+      } else if (Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+    }
+
+  } else {
+    status.innerText = "🔴 MODO GAMING DESACTIVADO";
+    status.style.color = "red";
+    button.innerText = "ACTIVAR BOOST";
+  }
+}
+</script>
 </body>
 </html>
