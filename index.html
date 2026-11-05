@@ -178,7 +178,55 @@ document.getElementById("mensaje").innerText="¡Ajustes guardados!";
 
   <br><br>
 
-  <button id="boostButton"
+  <<button type="button" id="boostButton"
+class="boost-btn" onclick="toggleBoost()">
+ACTIVAR AUTO BOOST
+</button>
+
+<h3 id="boostStatus" class="boost-status">
+🔴 SISTEMA DESACTIVADO
+</h3>
+
+<div class="boost-info">
+⚡ ESTADO GAMING:
+<strong id="gamingState">En espera</strong>
+</div>
+
+<p class="boost-tip">
+J-AIM-FF prepara tu teléfono para jugar.
+</p>
+
+</div>
+
+<script>
+let boostActive = false;
+
+function toggleBoost() {
+  boostActive = !boostActive;
+
+  const button = document.getElementById("boostButton");
+  const status = document.getElementById("boostStatus");
+  const state = document.getElementById("gamingState");
+  const game = document.getElementById("gameMode").value;
+
+  button.classList.toggle("active", boostActive);
+
+  button.innerText = boostActive
+    ? "DESACTIVAR BOOST"
+    : "ACTIVAR AUTO BOOST";
+
+  status.innerText = boostActive
+    ? "🟢 GAMING ACTIVADO"
+    : "🔴 SISTEMA DESACTIVADO";
+
+  status.style.color = boostActive ? "#00ff66" : "red";
+
+  state.innerText = boostActive
+    ? game + " seleccionado"
+    : "En espera";
+}
+
+</script>
    
 </body>
 </html>
